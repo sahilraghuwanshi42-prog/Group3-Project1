@@ -31,6 +31,12 @@ Week 1 completed successfully.
 
 Users can upload PDF contracts through the Django Admin panel and data is stored in PostgreSQL.
 
+## Week 2 Progress
+
+- Integrated PyMuPDF
+- Created PDF text extraction utility
+- Successfully extracted text from uploaded PDF files
+
 ## Project Structure
 
 ```text
