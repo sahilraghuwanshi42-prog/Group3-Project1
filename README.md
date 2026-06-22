@@ -1,14 +1,14 @@
 # LegalTech Contract Parsing & Risk Extraction Engine
 
 ## Objective
-
-Build a system that allows users to upload contracts and analyze them for risk-related clauses.
+This project is being developed as part of the Infotact Technical Internship Program. The goal is to build a LegalTech platform capable of processing legal PDF documents, extracting text, identifying clauses, and detecting potential risks using Natural Language Processing (NLP).
 
 ## Tech Stack
 
 - Python
 - Django
 - PostgreSQL
+- PyMuPDF
 - Git & GitHub
 
 ## Week 1 Progress
@@ -25,28 +25,58 @@ Build a system that allows users to upload contracts and analyze them for risk-r
 - PDF upload functionality
 - Database storage using PostgreSQL
 
-### Current Status
-
-Week 1 completed successfully.
-
-Users can upload PDF contracts through the Django Admin panel and data is stored in PostgreSQL.
 
 ## Week 2 Progress
 
-- Integrated PyMuPDF
-- Created PDF text extraction utility
-- Successfully extracted text from uploaded PDF files
+### Completed Feature
 
-## Project Structure
+-⁠  ⁠PDF upload API implementation
+-⁠  ⁠PDF text extraction using PyMuPDF
+-⁠  ⁠Text cleaning and preprocessing
+-⁠  ⁠Database storage for extracted text
+-⁠  ⁠API integration with extraction workflow
+-⁠  ⁠Successful API testing using file uploads
+-⁠  ⁠Extracted text persistence verification
 
-```text
-documents/
-├── models.py
-├── admin.py
-├── views.py
-├── migrations/
+### Current Workflow
 
-legaltech/
-├── settings.py
-├── urls.py
-```
+## PDF Upload
+→ Extract Text
+→ Clean Text
+→ Store in Database
+
+## API Endpoint
+
+Upload PDF
+POST /api/upload/
+
+## Request
+
+•⁠  ⁠title
+•⁠  ⁠pdf_file
+
+## Response
+ 
+•⁠  ⁠Document ID
+•⁠  ⁠Document Title
+•⁠  ⁠Uploaded PDF URL
+•⁠  ⁠Extracted Text Preview
+
+### Project Status
+
+Completed
+
+•⁠  ⁠Week 1 ✅
+•⁠  ⁠Week 2 ✅
+
+## Upcoming
+
+•⁠  ⁠Clause Extraction
+•⁠  ⁠Contract Structure Analysis
+•⁠  ⁠Risk Flag Detection
+•⁠  ⁠NLP Processing
+•⁠  ⁠Frontend Interface
+
+### Author
+
+Vinod Raghuwanshi
