@@ -1,11 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from .models import Document
+from .pdf_utils import extract_text_from_pdf
+
 
 class UploadDocumentView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
     def post(self, request):
+
         title = request.data.get("title")
         pdf_file = request.FILES.get("pdf_file")
 
@@ -14,8 +20,14 @@ class UploadDocumentView(APIView):
             pdf_file=pdf_file
         )
 
+        text = extract_text_from_pdf(document.pdf_file.path)
+
+        document.extract_text = text
+        document.save()
+
         return Response({
             "id": document.id,
             "title": document.title,
-            "pdf_file": document.pdf_file.url
+            "pdf_file": document.pdf_file.url,
+            "text_preview": document.extract_text[:1000]
         }, status=status.HTTP_201_CREATED)
