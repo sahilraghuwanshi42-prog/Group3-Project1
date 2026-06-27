@@ -28,11 +28,15 @@ class UploadDocumentView(APIView):
         clauses = extract_clauses(text)
 
         for clause in clauses:
+            from .pdf_utils import categorize_clause
+
             ExtractedClause.objects.create(
                 document=document,
                 clause_text=clause,
-                clause_type="General"
+                # clause_type="General"
+                clause_type=categorize_clause(clause)
             )
+            
 
         return Response({
             "id": document.id,

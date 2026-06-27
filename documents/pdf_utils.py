@@ -1,6 +1,10 @@
 import fitz
 import re
 
+import spacy
+nlp = spacy.load("en_core_web_sm")
+
+
 def extract_text_from_pdf(pdf_path):
     text = ""
     pdf = fitz.open(pdf_path)
@@ -39,3 +43,27 @@ def extract_clauses(text):
             clauses.append(line)
 
     return clauses
+
+
+
+def categorize_clause(clause):
+    doc = nlp(clause)
+
+    text = clause.lower()
+
+    if "payment" in text:
+        return "Payment"
+
+    elif "termination" in text or "terminate" in text or "terminated" in text:
+        return "Termination"
+
+    elif "confidential" in text:
+        return "Confidentiality"
+
+    elif "jurisdiction" in text:
+        return "Jurisdiction"
+
+    elif "governing law" in text:
+        return "Governing Law"
+
+    return "General"
