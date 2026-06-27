@@ -4,10 +4,19 @@
 # # print(cleaned_text[:1000])
 
 
-from documents.pdf_utils import extract_pages_from_pdf
+# from documents.pdf_utils import extract_pages_from_pdf
 
+# pages = extract_pages_from_pdf("pdfs/Python_Project.pdf")
+
+# for page in pages:
+#     print(f"\n--- Page {page['page_number']} ---")
+#     print(page['text'][:500])
+
+from pdf_utils import extract_pages_from_pdf
+
+# pages = extract_pages_from_pdf("pdfs/text.pdf")
 pages = extract_pages_from_pdf("pdfs/Python_Project.pdf")
 
 for page in pages:
-    print(f"\n--- Page {page['page_number']} ---")
-    print(page['text'][:500])
+    print(f"\n----- Page {page['page_number']} -----")
+    print(page["text"][:300])

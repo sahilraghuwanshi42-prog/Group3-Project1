@@ -10,7 +10,7 @@ __pycache__/
 
 # Django
 db.sqlite3
-media/
+pdfs
 
 # Environment Variables
 .env
