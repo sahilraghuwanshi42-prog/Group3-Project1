@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 
-from .models import Document
-from .pdf_utils import extract_text_from_pdf
+from .models import Document, ExtractedClause
+from .pdf_utils import extract_text_from_pdf, extract_clauses
 
 
 class UploadDocumentView(APIView):
@@ -24,6 +24,15 @@ class UploadDocumentView(APIView):
 
         document.extract_text = text
         document.save()
+
+        clauses = extract_clauses(text)
+
+        for clause in clauses:
+            ExtractedClause.objects.create(
+                document=document,
+                clause_text=clause,
+                clause_type="General"
+            )
 
         return Response({
             "id": document.id,
