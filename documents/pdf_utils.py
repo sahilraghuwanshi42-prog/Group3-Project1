@@ -67,3 +67,46 @@ def categorize_clause(clause):
         return "Governing Law"
 
     return "General"
+
+
+def extract_entities(text):
+    doc = nlp(text)
+
+    entities = []
+
+    for ent in doc.ents:
+        if ent.label_ in ["ORG", "PERSON", "GPE"]:
+            entities.append({
+                "text": ent.text,
+                "label": ent.label_
+            })
+
+    return entities
+
+
+def detect_risk(clause):
+    text = clause.lower()
+
+    high_risk = [
+        "penalty",
+        "liability",
+        "indemnify",
+        "terminate immediately",
+        "breach"
+    ]
+
+    medium_risk = [
+        "confidential",
+        "arbitration",
+        "jurisdiction"
+    ]
+
+    for word in high_risk:
+        if word in text:
+            return "High"
+
+    for word in medium_risk:
+        if word in text:
+            return "Medium"
+
+    return "Low"

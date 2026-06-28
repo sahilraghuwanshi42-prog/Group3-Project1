@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 
-from .models import Document, ExtractedClause
+from .models import Document, ExtractedClause, RiskFlag
 from .pdf_utils import extract_text_from_pdf, extract_clauses
 
+from .pdf_utils import detect_risk
 
 class UploadDocumentView(APIView):
     parser_classes = [MultiPartParser, FormParser]
@@ -36,7 +37,14 @@ class UploadDocumentView(APIView):
                 # clause_type="General"
                 clause_type=categorize_clause(clause)
             )
-            
+            risk = detect_risk(clause)
+
+            if risk != "Low":
+                RiskFlag.objects.create(
+                    document=document,
+                    risk_text=clause,
+                    risk_level=risk
+                )
 
         return Response({
             "id": document.id,
