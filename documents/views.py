@@ -8,6 +8,8 @@ from .pdf_utils import extract_text_from_pdf, extract_clauses
 
 from .pdf_utils import detect_risk
 
+from .serializers import DocumentSerializer
+
 class UploadDocumentView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
@@ -46,9 +48,9 @@ class UploadDocumentView(APIView):
                     risk_level=risk
                 )
 
-        return Response({
-            "id": document.id,
-            "title": document.title,
-            "pdf_file": document.pdf_file.url,
-            "text_preview": document.extract_text[:1000]
-        }, status=status.HTTP_201_CREATED)
+            serializer = DocumentSerializer(document)
+
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
