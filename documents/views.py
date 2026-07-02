@@ -48,9 +48,10 @@ class UploadDocumentView(APIView):
                     risk_level=risk
                 )
 
-            serializer = DocumentSerializer(document)
 
-            return Response(
-                serializer.data,
+        serializer = DocumentSerializer(document)
+
+        return Response(
+            serializer.data,
                 status=status.HTTP_201_CREATED
-            )
+        )
