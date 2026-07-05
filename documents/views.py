@@ -1,4 +1,5 @@
-from rest_framework.views import APIView
+# from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -8,9 +9,10 @@ from .pdf_utils import extract_text_from_pdf, extract_clauses
 
 from .pdf_utils import detect_risk
 
-from .serializers import DocumentSerializer
+from .serializers import DocumentSerializer,UploadDocuemntSerializer
 
-class UploadDocumentView(APIView):
+class UploadDocumentView(GenericAPIView):
+    serializer_class = UploadDocuemntSerializer
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request):

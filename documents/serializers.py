@@ -1,7 +1,11 @@
 from rest_framework import serializers
 from .models import Document, ExtractedClause, RiskFlag
 
+class UploadDocuemntSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length = 255)
+    pdf_file = serializers.FileField()
 
+    
 class ExtractedClauseSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExtractedClause
