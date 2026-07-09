@@ -20,6 +20,25 @@ class UploadDocumentView(GenericAPIView):
         title = request.data.get("title")
         pdf_file = request.FILES.get("pdf_file")
 
+        # Validation
+        if not title:
+            return Response(
+                {"error": "Title is required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if not pdf_file:
+            return Response(
+                {"error": "PDF file is required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if not pdf_file.name.lower().endswith(".pdf"):
+            return Response(
+                {"error": "Only PDF files are allowed"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         document = Document.objects.create(
             title=title,
             pdf_file=pdf_file
